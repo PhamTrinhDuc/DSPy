@@ -75,7 +75,7 @@ qdrant_retriever_model = QdrantRM(
 )
 # init language model from dspy, LM used is called api  Groq
 lm = dspy.GROQ(model=MODEL_LLM_NAME, 
-               api_key =os.getenv('GROQ_API_KEY'))
+               api_key = "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")
 dspy.settings.configure(
     rm=qdrant_retriever_model,
     lm=lm
@@ -83,12 +83,12 @@ dspy.settings.configure(
 
 # build RAG using components of dspy
 class GenerateAnswer(dspy.Signature):
-    """Trả lời các câu hỏi bằng câu trả lời thực tế hợp lý.
+    """Trả lời các câu hỏi 1 cách chính xác. Nếu câu hỏi không liên quan đến thông tin sản phẩm, hãy tự đưa ra câu trả lời bằng tri thức của bạn.
     Lưu ý: bạn chỉ được sử dụng tiếng việt cho cuộc hội thoại"""
 
-    context = dspy.InputField(desc = "sẽ chứa một tài liệu liên quan đến hành động AI")
+    context = dspy.InputField(desc = "có thể chứa tài liệu liên quan đến câu hỏi.")
     question = dspy.InputField()
-    answer = dspy.OutputField(desc = "một câu trả lời trong vòng 20 đến 30 từ")
+    answer = dspy.OutputField(desc = "câu trả lời chính xác dựa vào thông tin cho trước")
 
 # get context from user's question
 def get_context(question: str) -> str:
