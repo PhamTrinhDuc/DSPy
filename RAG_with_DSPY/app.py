@@ -10,7 +10,7 @@ import os
 
 
 EMBEDDING_DIM = 384
-PATH_DATA = "data/wordWarData.pdf"
+PATH_DATA = "data/pdf_product.pdf"
 MODEL_LLM_NAME = "mixtral-8x7b-32768"
 MODEL_EMBEDDING_NAME = "BAAI/bge-small-en-v1.5"
 
@@ -84,11 +84,12 @@ dspy.settings.configure(
 
 # build RAG using components of dspy
 class GenerateAnswer(dspy.Signature):
-    """Answer questions with logical factoid answers."""
+    """Trả lời các câu hỏi bằng câu trả lời thực tế hợp lý.
+    Lưu ý: bạn chỉ được sử dụng tiếng việt cho cuộc hội thoại"""
 
-    context = dspy.InputField(desc = "will contain an AI act related document")
+    context = dspy.InputField(desc = "sẽ chứa một tài liệu liên quan đến hành động AI")
     question = dspy.InputField()
-    answer = dspy.OutputField(desc = "a answer within 20 to 30 words")
+    answer = dspy.OutputField(desc = "một câu trả lời trong vòng 20 đến 30 từ")
 
 # get context from user's question
 def get_context(question: str) -> str:
